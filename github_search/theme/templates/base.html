@@ -1,0 +1,32 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}GitHub Search{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% block extra_css %}{% endblock %}
+  </head>
+
+  <body
+    class="app-background flex justify-center items-center min-h-screen text-white"
+  >
+    {% block header %}
+    <!-- Common header/navigation can go here -->
+    {% endblock %}
+
+    <main class="main-container flex flex-col gap-11">
+      {% block content %}
+      <!-- Page-specific content goes here -->
+      {% endblock %}
+    </main>
+
+    {% block footer %}
+    <!-- Common footer can go here -->
+    {% endblock %} {% block extra_js %}{% endblock %}
+  </body>
+</html>

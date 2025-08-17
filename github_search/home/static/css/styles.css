@@ -1,0 +1,168 @@
+/* Space Mono */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  --neutral: #fff;
+  --neutral-200: #90a4d4;
+  --neutral-800: #1e2a47;
+  --neutral-900: #141d2f;
+  --blue-300: #60abff;
+  --blue-500: #0079ff;
+}
+
+body {
+  font-family: "Space Mono", monospace;
+}
+
+.app-background {
+  background-color: var(--neutral-900);
+  min-height: 100vh;
+}
+
+/* Remove the global color override that conflicts with Tailwind */
+/* * {
+  color: var(--neutral);
+} */
+
+.main-container {
+  width: 730px;
+}
+
+/* Text Presets */
+.text-preset-1 {
+  font-family: "Space Mono", monospace;
+  font-size: 26px;
+  line-height: 120%;
+  font-weight: 700;
+}
+
+.text-preset-2 {
+  font-family: "Space Mono", monospace;
+  font-size: 22px;
+  line-height: 140%;
+  font-weight: 700;
+}
+
+.text-preset-3 {
+  font-family: "Space Mono", monospace;
+  font-size: 18px;
+  line-height: 140%;
+  font-weight: 400;
+}
+
+.text-preset-3-bold {
+  font-family: "Space Mono", monospace;
+  font-size: 18px;
+  line-height: 140%;
+  font-weight: 700;
+}
+
+.text-preset-4 {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  color: var(--blue-300);
+}
+
+.text-preset-5 {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 700;
+}
+
+.text-preset-6 {
+  font-family: "Space Mono", monospace;
+  font-size: 15px;
+  line-height: 150%;
+  font-weight: 400;
+}
+
+.text-preset-7 {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  line-height: 150%;
+  font-weight: 400;
+}
+
+.text-preset-8 {
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  line-height: 140%;
+  font-weight: 400;
+}
+
+/* Custom component styles - use specific selectors to avoid Tailwind conflicts */
+
+/* Search Bar */
+.search-bar {
+  background-color: var(--neutral-800);
+  padding: 10.5px 12px;
+}
+
+body
+  > main
+  > section.search-bar.flex.items-center.rounded-lg.p-6.justify-between
+  > button {
+  background-color: var(--blue-500);
+  padding: 12px 24px;
+  border-radius: 10px;
+}
+
+body
+  > main
+  > section.search-bar.flex.items-center.rounded-lg.p-6.justify-between
+  > div {
+  gap: 20px;
+}
+
+/* User Profile */
+.profile {
+  background-color: var(--neutral-800);
+}
+
+.user-propic {
+  border-radius: 100%;
+  /* Ensure aspect ratio is maintained */
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* Remove width override that conflicts with Tailwind */
+.profile-text {
+  width: -webkit-fill-available;
+}
+
+.stats-container {
+  background-color: var(--neutral-900);
+  padding: 1rem 2rem;
+}
+
+.social-grid-container {
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+.stat {
+  gap: 4px;
+}
+
+body
+  > main
+  > section.flex.p-12.gap-8.rounded-lg.profile
+  > div
+  > div.grid.gap-4.social-grid-container
+  > div
+  > img {
+  filter: brightness(0) invert(1);
+}
+
+body
+  > main
+  > section.search-bar.flex.items-center.rounded-lg.p-6.justify-between
+  > div
+  > img {
+  filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(1000%)
+    hue-rotate(200deg) brightness(1.2);
+}
