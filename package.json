@@ -1,0 +1,12 @@
+{
+  "name": "github-search",
+  "version": "1.0.0",
+  "description": "GitHub search app with Django and Tailwind",
+  "scripts": {
+    "build": "cd theme/static_src && npm install && npm run build"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  }
+}

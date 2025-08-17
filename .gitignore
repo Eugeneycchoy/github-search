@@ -39,7 +39,7 @@ Thumbs.db
 
 # Static files (generated)
 staticfiles/
-static/css/dist/
+# static/css/dist/  # Comment out so built CSS is included
 
 # Tailwind build output
-theme/static/css/dist/
+# theme/static/css/dist/  # Comment out so built CSS is included
