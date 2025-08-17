@@ -12,14 +12,70 @@ Search{% endblock %} {% block content %}
 </header>
 
 <section class="search-bar flex items-center rounded-lg p-6 justify-between">
-  <div class="flex items-center">
-    <img src="{% static 'img/icon-search.svg' %}" />
-    <p>Search GitHub username...</p>
-  </div>
-  <button class="cursor-pointer">Search</button>
+  <form
+    id="searchForm"
+    class="flex items-center justify-between w-full"
+    action="{% url 'home' %}"
+    method="GET"
+  >
+    <div class="flex items-center flex-1">
+      <img src="{% static 'img/icon-search.svg' %}" alt="Search icon" />
+      <input
+        type="text"
+        name="username"
+        id="searchInput"
+        placeholder="Search Github username..."
+        class="search-input"
+        style="
+          background: transparent !important;
+          border: none !important;
+          outline: none !important;
+          color: white !important;
+          font-size: 15px !important;
+          font-family: 'Space Mono', monospace !important;
+          flex: 1 !important;
+          margin-left: 20px !important;
+          min-width: 250px !important;
+        "
+        value="{{ request.GET.username }}"
+        required
+      />
+      <div id="errorMessage" class="text-red-500 text-preset-8 hidden ml-4">
+        No results
+      </div>
+      {% if error %}
+      <div class="text-red-500 text-preset-8 ml-4">
+        {{ error }}
+      </div>
+      {% endif %}
+    </div>
+    <button
+      type="submit"
+      class="cursor-pointer hover:opacity-80 transition-opacity"
+    >
+      Search
+    </button>
+  </form>
 </section>
 
 <section class="flex p-12 gap-8 rounded-lg profile">
+  {% if user_data %}
+  <img
+    class="h-full user-propic w-[117px]"
+    src="{{ user_data.avatar_url }}"
+    alt="{{ user_data.name }}'s avatar"
+  />
+  <div class="flex flex-col gap-6 profile-text">
+    <!-- Profile Overview -->
+    <div class="flex justify-between profile-text-top">
+      <div class="profile-text-top-left">
+        <div class="text-preset-1 mb-[2px]">{{ user_data.name }}</div>
+        <div class="mb-6 text-preset-4">@{{ user_data.login }}</div>
+        <div class="text-preset-6 opacity-[70%]">{{ user_data.bio }}</div>
+      </div>
+      <div class="profile-text-top-right">Joined {{ user_data.created_at }}</div>
+    </div>
+  {% else %}
   <img
     class="h-full user-propic"
     src="{% static 'img/user-profile-pic.png' %}"
@@ -34,53 +90,123 @@ Search{% endblock %} {% block content %}
       </div>
       <div class="profile-text-top-right">Joined 25 Jan 2011</div>
     </div>
+  {% endif %}
 
     <!-- Stats -->
     <div class="flex rounded-lg justify-between stats-container">
       <div class="flex flex-col stat">
         <div class="stat-title text-preset-7">Repos</div>
-        <div class="stat-count text-preset-2">8</div>
+        <div class="stat-count text-preset-2">
+          {% if user_data %}{{ user_data.public_repos }}{% else %}8{% endif %}
+        </div>
       </div>
 
       <div class="flex flex-col stat">
         <div class="stat-title text-preset-7">Followers</div>
-        <div class="stat-count text-preset-2">3938</div>
+        <div class="stat-count text-preset-2">
+          {% if user_data %}{{ user_data.followers }}{% else %}3938{% endif %}
+        </div>
       </div>
 
       <div class="flex flex-col stat">
         <div class="stat-title text-preset-7">Following</div>
-        <div class="stat-count text-preset-2">9</div>
+        <div class="stat-count text-preset-2">
+          {% if user_data %}{{ user_data.following }}{% else %}9{% endif %}
+        </div>
       </div>
     </div>
 
     <!-- Social container -->
     <div class="grid gap-4 social-grid-container">
       <!-- Location -->
-      <div class="flex gap-4 items-center grid-item cursor-pointer">
+      <div class="flex gap-4 items-center grid-item cursor-pointer {% if user_data.location == 'Not Available' %}opacity-[70%]{% endif %}">
         <img src="{% static 'img/icon-location.svg'%}" />
-        <div class="text-preset-6">San Francisco</div>
+        <div class="text-preset-6">
+          {% if user_data %}{{ user_data.location }}{% else %}San Francisco{% endif %}
+        </div>
       </div>
 
       <!-- Twitter -->
-      <div
-        class="flex gap-4 items-center grid-item cursor-pointer opacity-[70%]"
-      >
+      <div class="flex gap-4 items-center grid-item cursor-pointer {% if user_data.twitter_username == 'Not Available' or not user_data %}opacity-[70%]{% endif %}">
         <img src="{% static 'img/icon-twitter.svg'%}" />
-        <div class="text-preset-6">Not Available</div>
+        <div class="text-preset-6">
+          {% if user_data and user_data.twitter_username != 'Not Available' %}
+            @{{ user_data.twitter_username }}
+          {% else %}
+            Not Available
+          {% endif %}
+        </div>
       </div>
 
       <!-- Website -->
-      <div class="flex gap-4 items-center grid-item cursor-pointer">
+      <div class="flex gap-4 items-center grid-item cursor-pointer {% if user_data.blog == 'Not Available' or not user_data %}opacity-[70%]{% endif %}">
         <img src="{% static 'img/icon-website.svg'%}" />
-        <div class="text-preset-6">https://github.blog</div>
+        <div class="text-preset-6">
+          {% if user_data and user_data.blog != 'Not Available' %}
+            <a href="{{ user_data.blog }}" target="_blank" class="hover:underline">{{ user_data.blog }}</a>
+          {% else %}
+            Not Available
+          {% endif %}
+        </div>
       </div>
 
-      <!-- GitHub -->
-      <div class="flex gap-4 items-center grid-item cursor-pointer">
+      <!-- Company -->
+      <div class="flex gap-4 items-center grid-item cursor-pointer {% if user_data.company == 'Not Available' or not user_data %}opacity-[70%]{% endif %}">
         <img src="{% static 'img/icon-company.svg'%}" />
-        <div class="text-preset-6">@github</div>
+        <div class="text-preset-6">
+          {% if user_data %}{{ user_data.company }}{% else %}@github{% endif %}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+    const errorMessage = document.getElementById("errorMessage");
+
+    // Handle form submission
+    searchForm.addEventListener("submit", function (e) {
+      const username = searchInput.value.trim();
+
+      // Basic validation
+      if (!username) {
+        e.preventDefault();
+        showError("Please enter a username");
+        return;
+      }
+
+      // Hide error message and let form submit normally
+      hideError();
+    });
+
+    // Handle input events for real-time validation
+    searchInput.addEventListener("input", function () {
+      // Hide error when user starts typing
+      hideError();
+
+      // Optional: Add real-time validation or suggestions here
+    });
+
+    // Handle Enter key press
+    searchInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        searchForm.dispatchEvent(new Event("submit"));
+      }
+    });
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.remove("hidden");
+      searchInput.classList.add("border-red-500");
+    }
+
+    function hideError() {
+      errorMessage.classList.add("hidden");
+      searchInput.classList.remove("border-red-500");
+    }
+  });
+</script>
 {% endblock %}

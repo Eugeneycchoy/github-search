@@ -20,29 +20,34 @@ A Django web application for searching GitHub users, built as part of a Frontend
 ## Setup Instructions
 
 ### Prerequisites
+
 - Python 3.8+
 - Node.js (for Tailwind CSS)
 
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <your-repo-url>
    cd github-search
    ```
 
 2. Create and activate a virtual environment:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
 3. Install Python dependencies:
+
    ```bash
    pip install django django-tailwind
    ```
 
 4. Install Tailwind CSS:
+
    ```bash
    cd github_search
    python manage.py tailwind install
@@ -56,11 +61,13 @@ A Django web application for searching GitHub users, built as part of a Frontend
 ### Development
 
 1. Start the Django development server:
+
    ```bash
    python manage.py runserver
    ```
 
 2. In a separate terminal, start the Tailwind CSS watcher:
+
    ```bash
    python manage.py tailwind start
    ```
